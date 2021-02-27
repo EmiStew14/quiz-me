@@ -1,6 +1,12 @@
-.btn:hover {
-    background-color: blueviolet;
-}
 .btn {
-    background:#1B0024;
+    background:#32A852;
+}
+.btn:hover {
+    background-color: #A6FF6F;
+}
+#questions-box {
+    display: none;
+    width: 300px;
+    height: 300px;
+    background-color: violet;
 }
