@@ -1,10 +1,18 @@
 var timer = document.getElementById("time");
+var scoreDiv = document.getElementById("scoreContainer");
 var main = document.getElementById("main");
+var questbx = document.getElementById("questions-box");
 var quizbtn = document.getElementById("start");
+var question = document.getElementById("question");
+var choiceA = document.getElementById("A");
+var choiceB = document.getElementById("B");
+var choiceC = document.getElementById("C");
+var choiceD = document.getElementById("D");
+var userchoice="";
 var questions = [
   {
     q: "What data type is not supported by JavaScript",
-    c: ["Undefined", "String", "Boolean", "Character"],
+    c: ["undefined", "String", "Boolean", "Character"],
     a: "Character",
   },
   {
@@ -31,19 +39,36 @@ var questions = [
     a: "refrence error",
   },
 ];
-    var list = $("p");
+var lastQuestion = questions.length - 1;
 
-for (var i = 0; i < questions[0].c.length; i++) {
-  var choice = $("p");
-  $("ol").append("<li>" + questions[0].c[i] + "</li>");
-     }
-    answers = [[0].a, [1].a, [2].a, [3].a, [4].a];
-    console.log(answers);
+let runningQuestion = 0;
 
-for (var i = 0; i < answers; i++) {
-  if (questions === answers[i]) questions = true;
+
+function showQuestions() {
+    var questionincrementer = 0;
+    userchoice;
+    var currentquestion = questions;
+    var quiz
+
+
+for (var i = 0; i < questions[i].c.length; i++) {
+    var choices = questions[i].c[0]
+    console.log(`${questions[questionincrementer].c[i]}`);
+    var userchoice = [0];
+  $("ol").append("<li>" + questions[i].c[i] + "</li>");
+
+    console.log(choices);
+
+// for (var i = 0; i < userchoice; i++) {
+//   if (questions === output[i]) questions = true;
+// }
+
+};
+};
+
+function penalty () {
+
 }
-console.log(answers);
 
 function time() {
   var timeLeft = 75;
@@ -70,8 +95,10 @@ function time() {
   }, 1000);
 
   if (questions === answers) {
+    document.getElementById("answerme").addEventListener('click');
     console.log("Correct");
   } else {
+    document.getElementById("answerme").addEventListener('click');
     console.log("WRONG");
     timeLeft - 20;
   }
@@ -80,10 +107,9 @@ function beginQuiz() {
    // $("#quiz-card").hide();
    document.getElementById("quiz-card").setAttribute("style","display:none");
    document.getElementById("questions-box").setAttribute("style","display:block");
-   document.getElementById("quesions-box").write("questions");
 }
 $(quizbtn).on("click",()=>{
     time();
     beginQuiz();
+    showQuestions();
 });
-//$(quizbtn).on("click", questions());

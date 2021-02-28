@@ -34,7 +34,18 @@
                     <button type="button" id="start" class="btn text-white">Start Quiz</button>
             </div>
         </div>
-        <div id="questions-box"></div>
+        <div id="questions-box">
+            <div id="question"></div>
+            <div id="choices">
+                <div class="choice" id="A" onclick="checkAnswer('A')"></div>
+
+                <div class="choice" id="B" onclick="checkAnswer('B')"></div>
+
+                <div class="choice" id="C" onclick="checkAnswer('C')"></div>
+                
+                <div class="choice" id="D" onclick="checkAnswer('D')"></div>
+            </div>
+        </div>
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./assets/script.js"></script>
