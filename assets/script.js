@@ -9,7 +9,7 @@ var choiceB = document.getElementById("B");
 var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 var progress = document.getElementById("progress");
-var userchoice="";
+var score = 0;
 var questions = [
   {
     q: "What data type is not supported by JavaScript",
@@ -42,50 +42,58 @@ var questions = [
 ];
 var lastQuestionIndex = questions.length - 1;
 
-let questionincrementer = 0;
-
+var questionincrementer = 0;
 
 function showQuestions() {
-    userchoice;
     let currentquestion = questions[questionincrementer];
     question.innerHTML = "<p>" + currentquestion.q +"</p>";
     for (var i = 0; i < lastQuestionIndex; i++) {
-        questionincrementer = questions[i].c[0]
-        console.log(`${questions[questionincrementer].c[i]}`);
-    document.getElementById("choiceA").innerHTML = questions[i].c[0];
-    document.getElementById("choiceB").innerHTML = questions[i].c[1];
-    document.getElementById("choiceC:").innerHTML = questions[i].c[2];
-    document.getElementById("choiceD").innerHTML = questions[i].c[3];
+        questionincrementer = questions[i].c("");
+        /*console.log(`${questions[questionincrementer].c[0]}`);*/
+    document.getElementById("choiceA").innerHTML = questions[lastQuestionIndex].c(0);
+    console.log(questions[questionincrementer].c[i]);
+    document.getElementById("choiceB").innerHTML = questions[lastQuestionIndex].c(1);
+    console.log(questions[questionincrementer].c[i]);
+    document.getElementById("choiceC").innerHTML = questions[lastQuestionIndex].c(2);
+    console.log(questions[questionincrementer].c[i]);
+    document.getElementById("choiceD").innerHTML = questions[lastQuestionIndex].c(3)
+    console.log(questions[questionincrementer].c[i]);
 };
-    questionincrementer =0;
-    showQuestions();
-
-    questionincrementer++
-    showQuestions();
+    $(next).on("click",)
 }
+
+function beginQuiz() {
+    // $("#quiz-card").hide();
+    document.getElementById("quiz-card").setAttribute("style","display:none");
+    document.getElementById("questions-box").setAttribute("style","display:block");
+ }
+ $(quizbtn).on("click",()=>{
+     time();
+     beginQuiz();
+     showQuestions();
+     questionRender();
+     checkAnswer();
+     generateScore();
+     saveScore();
+
+ });
 function questionRender() {
 
 for (var i = 0; i < lastQuestionIndex; i++) {
-    progress.innerHTML+= "<div class='prog' id="+ i +"></div>";
-//     var choices = questions[i].c[0]
-//     console.log(`${questions[questionincrementer].c[i]}`);
-//     var userchoice = [0];
-//   $("ol").append("<li>" + questions[i].c[i] + "</li>");
+    progress.innerHTML+= "<div class='prog' id="+ questions[i].q +"></div>";
+};
+};
 
-//     console.log(choices);
-
-// for (var i = 0; i < userchoice; i++) {
-//   if (questions === output[i]) questions = true;
-// }
-
-};
-};
-function answerCorrect () {
-    document.getElementById(questionincrementer).setAttribute("style","backgroundColor:green");
-};
-function answerIncorrect() {
-    document.getElementById(questionincrementer).setAttribute("style","backgroundColor:red");
-};
+function generateScore() {
+    if (questionincrementer < lastQuestionIndex) {
+        questionincrementer++;
+        questionRender();
+    }else{ 
+        clearInterval(timeInterval);
+        scoreRender();
+        saveScore();
+    }
+  }
 
 function time() {
   var timeLeft = 75;
@@ -113,32 +121,49 @@ function time() {
   }, 1000);
   var i=0;
   if (questions[i].c === questions[i].a) {
-    answerCorrect();
     score++;
     console.log("Correct");
   } else {
-    answerIncorrect();
     timeLeft - 20;
     console.log("WRONG");
-    if (questionincrementer < lastQuestionIndex) {
+};
+}
+// $(quizbtn).on("click",()=>{
+//     time();
+//     beginQuiz();
+//     showQuestions();
+// });
+function checkAnswer(answer) {
+    if (answer === questions[questionincrementer].a){
+        score++;
+        answerCorrect();
+    }else{
+        answerIncorrect();
+    }
+    count= 0;
+    if(questionincrementer < lastQuestionIndex){
         questionincrementer++;
         questionRender();
-    }else{ 
-        clearInterval(timeInterval);
-        score();
+    }else{
+        clearInterval(timeLeft);
+        scoreRender();
     }
-  }
+    };
+function answerCorrect () {
+    document.getElementById("questionincrementer").setAttribute("style","backgroundColor:#0f0");
 };
- function checkAnswer() {
+function answerIncorrect() {
+    document.getElementById("questionincrementer").setAttribute("style","backgroundColor:#f00");
+};
 
- }
-function beginQuiz() {
-   // $("#quiz-card").hide();
-   document.getElementById("quiz-card").setAttribute("style","display:none");
-   document.getElementById("questions-box").setAttribute("style","display:block");
+function scoreRender(){
+    scoreDiv.setAttribute("style", "display:block");
+    score = Math.round(100 * score/questions.length);
+    localStorage.setItem(score);
+    document.getElementById("highscore").innerHTML= "'<p>'+ score +'</p>'";
 }
-$(quizbtn).on("click",()=>{
-    time();
-    beginQuiz();
-    showQuestions();
-});
+function saveScore(){
+    var initials = document.getElementById("save-init").form.id;
+localStorage.setItem(score, initials);
+document.getElementById("highscorelist").innerHTML = localStorage.getItem(scores);
+}
