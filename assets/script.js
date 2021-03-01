@@ -8,6 +8,7 @@ var choiceA = document.getElementById("A");
 var choiceB = document.getElementById("B");
 var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
+var progress = document.getElementById("progress");
 var userchoice="";
 var questions = [
   {
@@ -39,25 +40,39 @@ var questions = [
     a: "refrence error",
   },
 ];
-var lastQuestion = questions.length - 1;
+var lastQuestionIndex = questions.length - 1;
 
-let runningQuestion = 0;
+let questionincrementer = 0;
 
 
 function showQuestions() {
-    var questionincrementer = 0;
     userchoice;
-    var currentquestion = questions;
-    var quiz
+    let currentquestion = questions[questionincrementer];
+    question.innerHTML = "<p>" + currentquestion.q +"</p>";
+    for (var i = 0; i < lastQuestionIndex; i++) {
+        questionincrementer = questions[i].c[0]
+        console.log(`${questions[questionincrementer].c[i]}`);
+    document.getElementById("choiceA").innerHTML = questions[i].c[0];
+    document.getElementById("choiceB").innerHTML = questions[i].c[1];
+    document.getElementById("choiceC:").innerHTML = questions[i].c[2];
+    document.getElementById("choiceD").innerHTML = questions[i].c[3];
+};
+    questionincrementer =0;
+    showQuestions();
 
+    questionincrementer++
+    showQuestions();
+}
+function questionRender() {
 
-for (var i = 0; i < questions[i].c.length; i++) {
-    var choices = questions[i].c[0]
-    console.log(`${questions[questionincrementer].c[i]}`);
-    var userchoice = [0];
-  $("ol").append("<li>" + questions[i].c[i] + "</li>");
+for (var i = 0; i < lastQuestionIndex; i++) {
+    progress.innerHTML+= "<div class='prog' id="+ i +"></div>";
+//     var choices = questions[i].c[0]
+//     console.log(`${questions[questionincrementer].c[i]}`);
+//     var userchoice = [0];
+//   $("ol").append("<li>" + questions[i].c[i] + "</li>");
 
-    console.log(choices);
+//     console.log(choices);
 
 // for (var i = 0; i < userchoice; i++) {
 //   if (questions === output[i]) questions = true;
@@ -65,13 +80,16 @@ for (var i = 0; i < questions[i].c.length; i++) {
 
 };
 };
-
-function penalty () {
-
-}
+function answerCorrect () {
+    document.getElementById(questionincrementer).setAttribute("style","backgroundColor:green");
+};
+function answerIncorrect() {
+    document.getElementById(questionincrementer).setAttribute("style","backgroundColor:red");
+};
 
 function time() {
   var timeLeft = 75;
+  var score = 0;
 
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function () {
@@ -93,16 +111,27 @@ function time() {
       // Call the `displayMessage()` function 
     }
   }, 1000);
-
-  if (questions === answers) {
-    document.getElementById("answerme").addEventListener('click');
+  var i=0;
+  if (questions[i].c === questions[i].a) {
+    answerCorrect();
+    score++;
     console.log("Correct");
   } else {
-    document.getElementById("answerme").addEventListener('click');
-    console.log("WRONG");
+    answerIncorrect();
     timeLeft - 20;
+    console.log("WRONG");
+    if (questionincrementer < lastQuestionIndex) {
+        questionincrementer++;
+        questionRender();
+    }else{ 
+        clearInterval(timeInterval);
+        score();
+    }
   }
-}
+};
+ function checkAnswer() {
+
+ }
 function beginQuiz() {
    // $("#quiz-card").hide();
    document.getElementById("quiz-card").setAttribute("style","display:none");
