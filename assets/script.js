@@ -9,35 +9,37 @@ var choiceB = document.getElementById("B");
 var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 var progress = document.getElementById("progress");
-var score = 0;
+var score = 0;  
+var timeLeft = 75;
+
 var questions = [
   {
     q: "What data type is not supported by JavaScript",
     c: ["undefined", "String", "Boolean", "Character"],
-    a: "Character",
+    a: "D",
   },
   {
     q: "Which identifier allow an object to be defined",
     c: ["{}", "[]", "=", '"()"'],
-    a: "{}",
+    a: "A",
   },
   {
     q:
       "_____ is created whenever a variable that is defined outside the current scope is accessed from within some inner scope. In JavaScript, this is created every time a function is created.",
     c: ["Parameter", "Callback", "Closure", "Variable"],
-    a: "Closure",
+    a: "C",
   },
   {
     q:
       "What will be the output of the following code: var Output = (function(x) {Delete X;return X;} ) (0); console.log(output);",
     c: ["1", "0", "x", "undefined"],
-    a: "0",
+    a: "B",
   },
   {
     q:
       "what would be the output of the following code: //nfe (named function expression) var Foo = Function Bar() { return 7; }; typeof Bar();",
     c: ["null", "7", "refrence error", "undefined"],
-    a: "refrence error",
+    a: "C",
   },
 ];
 var lastQuestionIndex = questions.length - 1;
@@ -46,21 +48,32 @@ var questionincrementer = 0;
 
 function showQuestions() {
     let currentquestion = questions[questionincrementer];
-    question.innerHTML = "<p>" + currentquestion.q +"</p>";
     for (var i = 0; i < lastQuestionIndex; i++) {
-        questionincrementer = questions[i].c("");
+      question.innerHTML = "<p>" + currentquestion.q +"</p>";
+      var currentAnswer = questions[questionincrementer].c[i];
         /*console.log(`${questions[questionincrementer].c[0]}`);*/
-    document.getElementById("choiceA").innerHTML = questions[lastQuestionIndex].c(0);
-    console.log(questions[questionincrementer].c[i]);
-    document.getElementById("choiceB").innerHTML = questions[lastQuestionIndex].c(1);
-    console.log(questions[questionincrementer].c[i]);
-    document.getElementById("choiceC").innerHTML = questions[lastQuestionIndex].c(2);
-    console.log(questions[questionincrementer].c[i]);
-    document.getElementById("choiceD").innerHTML = questions[lastQuestionIndex].c(3)
-    console.log(questions[questionincrementer].c[i]);
+        switch (i) {
+          case 0:
+            document.getElementById("A").innerHTML = "<p>" + currentAnswer + "</p>";
+            break;
+          case 1:
+            document.getElementById("B").innerHTML = "<p>" + currentAnswer + "</p>";
+            break;
+          case 2:
+            document.getElementById("C").innerHTML ="<p>" + currentAnswer + "</p>";
+            break;
+          case 3:
+            document.getElementById("D").innerHTML = "<p>" + currentAnswer + "</p>";
+            break;
+
+          default:
+            break;
+        }
 };
-    $(next).on("click",)
-}
+};
+// $(next).on("click",()=>{
+//   showQuestions();
+// });
 
 function beginQuiz() {
     // $("#quiz-card").hide();
@@ -71,20 +84,11 @@ function beginQuiz() {
      time();
      beginQuiz();
      showQuestions();
-     questionRender();
-     checkAnswer();
-     generateScore();
-     saveScore();
-
  });
-function questionRender() {
 
-for (var i = 0; i < lastQuestionIndex; i++) {
-    progress.innerHTML+= "<div class='prog' id="+ questions[i].q +"></div>";
-};
-};
 
 function generateScore() {
+  console.log("I'm generate score");
     if (questionincrementer < lastQuestionIndex) {
         questionincrementer++;
         questionRender();
@@ -96,8 +100,6 @@ function generateScore() {
   }
 
 function time() {
-  var timeLeft = 75;
-  var score = 0;
 
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function () {
@@ -116,44 +118,37 @@ function time() {
       timer.textContent = "" ;
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
-      // Call the `displayMessage()` function 
+      // Call the `displayMessage()` function
+      saveScore(); 
     }
   }, 1000);
-  var i=0;
-  if (questions[i].c === questions[i].a) {
-    score++;
-    console.log("Correct");
-  } else {
-    timeLeft - 20;
-    console.log("WRONG");
-};
 }
-// $(quizbtn).on("click",()=>{
-//     time();
-//     beginQuiz();
-//     showQuestions();
-// });
+
 function checkAnswer(answer) {
+  console.log("I'm check answers");
     if (answer === questions[questionincrementer].a){
         score++;
         answerCorrect();
     }else{
+      timeLeft-=15;
         answerIncorrect();
     }
     count= 0;
     if(questionincrementer < lastQuestionIndex){
         questionincrementer++;
-        questionRender();
+        showQuestions();
     }else{
         clearInterval(timeLeft);
         scoreRender();
     }
     };
 function answerCorrect () {
-    document.getElementById("questionincrementer").setAttribute("style","backgroundColor:#0f0");
+    var correct = document.getElementById("choices");
+    // correct.innerHTML="Correct!"
 };
 function answerIncorrect() {
-    document.getElementById("questionincrementer").setAttribute("style","backgroundColor:#f00");
+    var incorrect = document.getElementById("progress");
+    // incorrect.innerHTML= "WRONG!!"
 };
 
 function scoreRender(){
@@ -163,7 +158,16 @@ function scoreRender(){
     document.getElementById("highscore").innerHTML= "'<p>'+ score +'</p>'";
 }
 function saveScore(){
-    var initials = document.getElementById("save-init").form.id;
-localStorage.setItem(score, initials);
+        window.alert("The quiz has now ended. Let's see how you did!");
+      
+        // check localStorage for high score, if it's not there, use 0
+        var highScore = localStorage.getItem("score") || 0;
+      
+    var initials = document.getElementById("saveinit").form.id;
+    initials = localStorage.setItem("initials")
+    highScore= localStorage.setItem("score");
 document.getElementById("highscorelist").innerHTML = localStorage.getItem(scores);
 }
+// $(back).on("click",()=> {
+
+// })
