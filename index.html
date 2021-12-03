@@ -14,19 +14,18 @@
         <div class="d-flex align-items-start flex-column bd-highlight mb-3">
         <a href= "./assets/index.html">View High Scores</a>
         </div>
-        <div class="d-flex align-items-end flex-column bd-highlight mb-3">
+        <div class="d-flex align-items-end flex-column bd-highlight mb-3 text-white">
             <!--Time entered here-->
             <p id="timer">
                 Time: <span id="time"></span>
             </p>
         </div>
     </header>
-    <br>
-    <main class="quiz-body card justify-content-center col-12">
+    <main class="quiz-body justify-content-center row">
         <div class="coding-quiz-challenge card-body mx-auto col-12-sm col-8-md col-6-lg col-3-xl">
             <div id="quiz-card" class="justify-content-center">
                 <h2 class="text-center text-white bg-secondary">Test Your Coding</h2>
-                    <p class="text-center">
+                    <p class="text-center bg-light">
                      Time to test your knowledge! Put your thinking cap on and let's crack into that coding knowledge. 
                     Think you can hold the new high score? Click below and let's find out! Answer carefully, your time depends on it!
                     </p>
@@ -34,9 +33,10 @@
                     <button type="button" id="start" class="btn text-white">Start Quiz</button>
             </div>
         </div>
-        <div id="questions-box" class="justify-content-center mx-auto col-12">
-            <div id="question"class="row"></div>
-            <div id="choices" class=" row justify-content-center mx-auto">
+        <div id="questions-box" class="card" style="width: fit-content;">
+            <div class="row card-body">
+            <div id="question"class="card-title col text-center"></div>
+            <div id="choices" class=" card-text col">
                 <div class="choice mx-auto col-12" id="A" onclick="checkAnswer('A')"></div>
 
                 <div class="choice mx-auto col-12" id="B" onclick="checkAnswer('B')"></div>
@@ -48,6 +48,7 @@
                     <button type="submit" id="next" class="btn text-white">Next</button>
                 </div> -->
             </div>
+        </div>
             <div id="saveinit">
             </div>
             <div id="progress"></div>

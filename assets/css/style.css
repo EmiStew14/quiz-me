@@ -1,3 +1,6 @@
+body{
+    background-image: url(../css/wallpaper.jpg);
+}
 .btn {
     background:#32A852;
 }
@@ -6,8 +9,6 @@
 }
 #questions-box {
     display: none;
-    width: 300px;
-    height: 300px;
 }
 #question{
     width:500px;
