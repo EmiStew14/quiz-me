@@ -37,8 +37,8 @@ var questions = [
   },
   {
     q:
-      "what would be the output of the following code: //nfe (named function expression) var Foo = Function Bar() { return 7; }; typeof Bar();",
-    c: ["null", "7", "refrence error", "undefined"],
+      "what would be the output of the following code: //nfe (named function expression)<br> var Foo = Function Bar() { return 7; }<br> typeof Bar();",
+    c: ["null", "7", "reference error", "undefined"],
     a: "C",
   },
 ];
@@ -49,7 +49,7 @@ var questionincrementer = 0;
 function showQuestions() {
     let currentquestion = questions[questionincrementer];
     for (var i = 0; i < lastQuestionIndex; i++) {
-      question.innerHTML = "<p>" + currentquestion.q +"</p>";
+      question.innerHTML = "<p class='text-center'>" + currentquestion.q +"</p>";
       var currentAnswer = questions[questionincrementer].c[i];
         /*console.log(`${questions[questionincrementer].c[0]}`);*/
         switch (i) {
