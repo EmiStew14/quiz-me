@@ -125,13 +125,12 @@ function time() {
 }
 
 function checkAnswer(answer) {
-  console.log("I'm checking answers");
     if (answer === questions[questionincrementer].a){
         score++;
-        answerCorrect();
+        // answerCorrect();
     }else{
       timeLeft-=15;
-        answerIncorrect();
+        // answerIncorrect();
     }
     count= 0;
     if(questionincrementer < lastQuestionIndex){
@@ -142,27 +141,27 @@ function checkAnswer(answer) {
         scoreRender();
     }
     };
-function answerCorrect () {
-    var correct = document.getElementById("choices");
-   if (correct ) {
+// function answerCorrect () {
+//     var correct = document.getElementById("choices");
+//    if (correct ) {
      
-   }
-    // correct.innerHTML="Correct!"
-};
-function answerIncorrect() {
-    var incorrect = document.getElementById("progress");
-    // incorrect.innerHTML= "WRONG!!"
-};
+//    }
+//     // correct.innerHTML="Correct!"
+// };
+// function answerIncorrect() {
+//     var incorrect = document.getElementById("progress");
+//     // incorrect.innerHTML= "WRONG!!"
+// };
 
 function scoreRender(){
+  window.alert("The quiz has now ended. Let's see how you did!");
+    window.open ('./assets/index.html','_self',false);
     scoreDiv.setAttribute("style", "display:block");
     score = Math.round(100 * score/questions.length);
     localStorage.setItem(score);
     document.getElementById("highscore").innerHTML= "'<p>'+ score +'</p>'";
 }
 function saveScore(){
-        window.alert("The quiz has now ended. Let's see how you did!");
-      
         // check localStorage for high score, if it's not there, use 0
     var highScore = localStorage.getItem("score") || 0;
     var initials = document.getElementById("saveinit").form.id;
