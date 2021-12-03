@@ -31,13 +31,13 @@ var questions = [
   },
   {
     q:
-      "What will be the output of the following code: var Output = (function(x) {Delete X;return X;} ) (0); console.log(output);",
+      "What will be the output of the following code: <br> var Output = (function(x) {<br>delete x;<br> return x;<br>} ) (0); console.log(output);",
     c: ["1", "0", "x", "undefined"],
     a: "B",
   },
   {
     q:
-      "what would be the output of the following code: //nfe (named function expression)<br> var Foo = Function Bar() { return 7; }<br> typeof Bar();",
+      "what would be the output of the following code: <br> //nfe (named function expression)<br> var Foo = Function Bar() { return 7; }<br> typeof Bar();",
     c: ["null", "7", "reference error", "undefined"],
     a: "C",
   },
@@ -51,7 +51,7 @@ function showQuestions() {
     for (var i = 0; i < lastQuestionIndex; i++) {
       question.innerHTML = "<p class='text-center'>" + currentquestion.q +"</p>";
       var currentAnswer = questions[questionincrementer].c[i];
-        /*console.log(`${questions[questionincrementer].c[0]}`);*/
+        console.log(`${questions[questionincrementer].c[i]}`);
         switch (i) {
           case 0:
             document.getElementById("A").innerHTML = "<p>" + currentAnswer + "</p>";
@@ -88,10 +88,10 @@ function beginQuiz() {
 
 
 function generateScore() {
-  console.log("I'm generate score");
+  console.log("I'm generating score");
     if (questionincrementer < lastQuestionIndex) {
         questionincrementer++;
-        questionRender();
+        showQuestions();
     }else{ 
         clearInterval(timeInterval);
         scoreRender();
@@ -125,7 +125,7 @@ function time() {
 }
 
 function checkAnswer(answer) {
-  console.log("I'm check answers");
+  console.log("I'm checking answers");
     if (answer === questions[questionincrementer].a){
         score++;
         answerCorrect();
@@ -144,6 +144,9 @@ function checkAnswer(answer) {
     };
 function answerCorrect () {
     var correct = document.getElementById("choices");
+   if (correct ) {
+     
+   }
     // correct.innerHTML="Correct!"
 };
 function answerIncorrect() {
@@ -161,12 +164,11 @@ function saveScore(){
         window.alert("The quiz has now ended. Let's see how you did!");
       
         // check localStorage for high score, if it's not there, use 0
-        var highScore = localStorage.getItem("score") || 0;
-      
+    var highScore = localStorage.getItem("score") || 0;
     var initials = document.getElementById("saveinit").form.id;
     initials = localStorage.setItem("initials")
     highScore= localStorage.setItem("score");
-document.getElementById("highscorelist").innerHTML = localStorage.getItem(scores);
+document.getElementById("highScoreList").innerHTML = localStorage.getItem(scores);
 }
 // $(back).on("click",()=> {
 
