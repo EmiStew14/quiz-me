@@ -9,7 +9,7 @@ var choiceB = document.getElementById("B");
 var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 var progress = document.getElementById("progress");
-var score = 0;  
+const correctAnswers = []; 
 var timeLeft = 75;
 
 var questions = [
@@ -42,6 +42,7 @@ var questions = [
     a: "C",
   },
 ];
+var score = Math.round(100 * correctAnswers.length/questions.length);
 var lastQuestionIndex = questions.length - 1;
 
 var questionincrementer = 0;
@@ -118,26 +119,26 @@ function time() {
       timer.textContent = "" ;
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
-      // Call the `displayMessage()` function
-      saveScore(); 
+      // Call the `displayMessage()` function 
     }
   }, 1000);
 }
 
 function checkAnswer(answer) {
     if (answer === questions[questionincrementer].a){
-        score++;
+        correctAnswers.push(answer);
+        console.log(answer);
         // answerCorrect();
     }else{
       timeLeft-=15;
         // answerIncorrect();
     }
-    count= 0;
     if(questionincrementer < lastQuestionIndex){
         questionincrementer++;
         showQuestions();
     }else{
         clearInterval(timeLeft);
+        saveScore();
         scoreRender();
     }
     };
@@ -155,19 +156,24 @@ function checkAnswer(answer) {
 
 function scoreRender(){
   window.alert("The quiz has now ended. Let's see how you did!");
-    window.open ('./assets/index.html','_self',false);
-    scoreDiv.setAttribute("style", "display:block");
-    score = Math.round(100 * score/questions.length);
-    localStorage.setItem(score);
-    document.getElementById("highscore").innerHTML= "'<p>'+ score +'</p>'";
+  window.open ('./assets/index.html','_self',false);
+  scoreDiv.setAttribute("style", "display:block");
+  document.getElementById("highScoreList").innerHTML = localStorage.getItem("playerInit");
 }
 function saveScore(){
+  var playerInit = prompt("Please enter your initials!");
+  var newScore= score;
+  localStorage.setItem(playerInit,newScore);
         // check localStorage for high score, if it's not there, use 0
-    var highScore = localStorage.getItem("score") || 0;
-    var initials = document.getElementById("saveinit").form.id;
-    initials = localStorage.setItem("initials")
-    highScore= localStorage.setItem("score");
-document.getElementById("highScoreList").innerHTML = localStorage.getItem(scores);
+        // keys = Object.keys(localStorage),
+        // i = keys.length;
+      
+        // while ( i-- ) {
+        //   correctAnswers.push( localStorage.getItem(keys[i], score.val) );
+        // }
+    // var initials = document.getElementById("saveinit").form.id;
+    // initials = localStorage.setItem("initials")
+// document.getElementById("highScoreList").innerHTML = localStorage.getItem(score);
 }
 // $(back).on("click",()=> {
 
