@@ -52,7 +52,7 @@ function showQuestions() {
     for (var i = 0; i < lastQuestionIndex; i++) {
       question.innerHTML = "<p class='text-center'>" + currentquestion.q +"</p>";
       var currentAnswer = questions[questionincrementer].c[i];
-        console.log(`${questions[questionincrementer].c[i]}`);
+        // console.log(`${questions[questionincrementer].c[i]}`);
         switch (i) {
           case 0:
             document.getElementById("A").innerHTML = "<p>" + currentAnswer + "</p>";
@@ -88,17 +88,16 @@ function beginQuiz() {
  });
 
 
-function generateScore() {
-  console.log("I'm generating score");
-    if (questionincrementer < lastQuestionIndex) {
-        questionincrementer++;
-        showQuestions();
-    }else{ 
-        clearInterval(timeInterval);
-        scoreRender();
-        saveScore();
-    }
-  }
+// function generateScore() {
+//   console.log("I'm generating score");
+//     if (questionincrementer < lastQuestionIndex) {
+//         questionincrementer++;
+//         showQuestions();
+//     }else{ 
+//         clearInterval(timeInterval);
+        
+//     }
+//   }
 
 function time() {
 
@@ -120,6 +119,9 @@ function time() {
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
       // Call the `displayMessage()` function 
+      checkAnswer();
+      saveScore();
+      displayScore();
     }
   }, 1000);
 }
@@ -127,7 +129,7 @@ function time() {
 function checkAnswer(answer) {
     if (answer === questions[questionincrementer].a){
         correctAnswers.push(answer);
-        console.log(answer);
+        // console.log(answer);
         // answerCorrect();
     }else{
       timeLeft-=15;
@@ -138,8 +140,7 @@ function checkAnswer(answer) {
         showQuestions();
     }else{
         clearInterval(timeLeft);
-        saveScore();
-        scoreRender();
+        return score;
     }
     };
 // function answerCorrect () {
@@ -154,23 +155,28 @@ function checkAnswer(answer) {
 //     // incorrect.innerHTML= "WRONG!!"
 // };
 
-function scoreRender(){
+function displayScore(){
   window.alert("The quiz has now ended. Let's see how you did!");
   window.open ('./assets/index.html','_self',false);
-  scoreDiv.setAttribute("style", "display:block");
-  document.getElementById("highScoreList").innerHTML = localStorage.getItem("playerInit");
+  // scoreDiv.setAttribute("style", "display:block");
+    let scoreBoardArr = localStorage.getItem('boardArr') || [];
+    scoreDiv.innerHTML = scoreBoardArr;
 }
+
 function saveScore(){
   var playerInit = prompt("Please enter your initials!");
-  var newScore= score;
-  localStorage.setItem(playerInit,newScore);
-        // check localStorage for high score, if it's not there, use 0
-        // keys = Object.keys(localStorage),
-        // i = keys.length;
-      
-        // while ( i-- ) {
-        //   correctAnswers.push( localStorage.getItem(keys[i], score.val) );
-        // }
+  console.log(playerInit);
+  console.log(score);
+  let scoreBoard = {
+    id: playerInit,
+    value: score
+  };
+  // console.log(scoreBoardArr);
+  let newScore = [];
+  // Array.isArray(newScore);
+  newScore.push(scoreBoard);
+  console.log(newScore);
+  localStorage.setItem('boardArr', JSON.stringify(newScore));
     // var initials = document.getElementById("saveinit").form.id;
     // initials = localStorage.setItem("initials")
 // document.getElementById("highScoreList").innerHTML = localStorage.getItem(score);
@@ -178,3 +184,6 @@ function saveScore(){
 // $(back).on("click",()=> {
 
 // })
+// checkAnswer();
+// saveScore();
+// displayScore();
